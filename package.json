@@ -1,0 +1,27 @@
+{
+  "name": "intro-api-node",
+  "version": "1.0.0",
+  "description": "Introdução API NODE JS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Node JS",
+    "API",
+    "MySQL",
+    "Express"
+  ],
+  "author": "Otávio Pereira",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
