@@ -3,10 +3,16 @@ const bd = require('../database/connection');
 module.exports = {
     async listarnotificacao (request, response){
         try{
+            const sql = `SELECT not_id, userAP_id, not_mensagem, not_data_envio, not_lida FROM Notificacoes`;
+
+            const [row] = await bd.query(sql);
+            const nItens = row.length;
+
          return response.status(200).json({
                 sucesso: true,
                 nmensagem: 'Lista de notificação.',
-                dados: null
+                nItens,
+                dados: row
              })
         }catch (error){
             return response.status(550).json({
