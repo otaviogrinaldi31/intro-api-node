@@ -66,10 +66,24 @@ module.exports = {
     },
     async editarnotificacao (request, response){
         try{
+            //parâmetros recebidos pelo corpo da requisição
+            const {Userap_ID, notificaçaoMensagem, NotDataEnvio, notificacaoLida} = request.body;
+            //parâmetro recebido pela URL via params ex: /notificacao/1
+            const {id} = request.params;
+            //Intrudoção SQL
+            const sql = `UPDATE notificacoes
+            SET userap_id = ?, not_mensagem = ?, not_data_envio = ?, not_lida = ?
+            WHERE not_id = ?`;
+            //preparo do array com os dados a serem atualizados
+            const values = [Userap_ID, notificaçaoMensagem, NotDataEnvio, notificacaoLida, id];
+            //Execução da obrenção de confirmação da atualização realizada
+            const atualizaDados = await db.query(sql, values);
+
          return response.status(200).json({
                 sucesso: true,
-                nmensagem: 'Editar notificação.',
-                dados: null
+                nmensagem: `Notificação ${id} atualizado com sucesso.`,
+                dados: atualizaDados[0].affectedRows
+                //menSql: atualizaDados
              })
         }catch (error){
             return response.status(550).json({

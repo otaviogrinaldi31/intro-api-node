@@ -5,7 +5,7 @@ const NotificacaoController = require('../controllers/notificacao');
 
 router.get('/notificacao', NotificacaoController.listarnotificacao);
 router.post('/notificacao', NotificacaoController.cadrastonotificacao);
-router.patch('/notificacao', NotificacaoController.editarnotificacao);
+router.patch('/notificacao/:id', NotificacaoController.editarnotificacao);
 router.delete('/notificacao', NotificacaoController.apagarnotificacao);
 
 module.exports = router;
