@@ -6,7 +6,7 @@ module.exports = {
 
             const sql = `SELECT not_id, userAP_id, not_mensagem, not_data_envio, not_lida FROM Notificacoes`;
 
-            const [row] = await bd.query(sql);
+            const [row] = await db.query(sql);
             const nItens = row.length;
 
          return response.status(200).json({
@@ -96,11 +96,28 @@ module.exports = {
     },
     async apagarnotificacao (request, response){
         try{
+            //parâmetro passado via URL na chamada da API pelo frontend
+            const {id} = request.params;
+            //comando de exclusão
+            const sql = `DELETE FROM notificacoes WHERE not_id = ?`;
+            //array com parâmetro da exclusão
+            const values = [id];
+            //executa intrução no banco de dados
+            const [result] = await db.query(sql, values);
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    sucesso: false,
+                    mensagem: `Notificação ${not_id} não encontrada.`,
+                    dados: null
+                });
+            }
          return response.status(200).json({
                 sucesso: true,
-                nmensagem: 'Apagar notificação.',
+                nmensagem: `Notificação ${id} excluído com sucesso.`,
                 dados: null
-             })
+             });
+
         }catch (error){
             return response.status(550).json({
                 sucesso: false,
